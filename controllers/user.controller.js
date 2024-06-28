@@ -14,6 +14,30 @@ exports.getUsers = async (req, res) => {
   }
 };
 
+// get inactive user
+exports.getInactiveUsers = async (req, res) => {
+  try {
+    const users = await UserService.getInactiveUsers();
+    const userDTOs = users.map((user) => new UserDTO(user));
+    res.json(userDTOs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching users" });
+  }
+}
+
+// get active user
+exports.getActiveUsers = async (req, res) => {
+  try {
+    const users = await UserService.getActiveUsers();
+    const userDTOs = users.map((user) => new UserDTO(user));
+    res.json(userDTOs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching users" });
+  }
+}
+
 exports.getUserById = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -33,7 +57,6 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
   try {
     req.body.id=await helper.generateUserId();
-    // req.body.deletedAt=null;
     const userData = new UserDTO(req.body);
     const { error } = await UserValidator.validateCreateUser(userData);
     if (error) {
@@ -68,6 +91,26 @@ exports.updateUser = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error updating user" });
+  }
+};
+
+exports.partialUpdateUser = async (req, res) => {
+  const userId = req.params.userId;
+  const updates = req.body;
+
+  // Validate the updates object to ensure it only contains allowed fields
+  const allowedFields = ['age', 'zipCode', 'city', 'password'];
+  const invalidFields = Object.keys(updates).filter(field => !allowedFields.includes(field));
+  if (invalidFields.length > 0) {
+    return res.status(400).json({ error: `Cannot update fields: ${invalidFields.join(', ')}` });
+  }
+
+  try {
+    const user = await UserService.partialUpdateUser(userId, updates);
+    const userDTO = new UserDTO(user);
+    res.json(userDTO);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update user' });
   }
 };
 

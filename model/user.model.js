@@ -26,15 +26,12 @@ const UserSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
     },
     city: {
       type: String,
-      required: true,
     },
     zipCode: {
       type: String,
-      required: true,
     },
     password: {
       type: String,
