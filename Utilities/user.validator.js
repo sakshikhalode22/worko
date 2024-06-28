@@ -8,7 +8,7 @@ const userSchema = Joi.object().keys({
   city: Joi.string(),
   zipCode: Joi.string().length(6).pattern(/^[0-9]+$/),
   password: Joi.string().required(),
-  id: Joi.string().required(), // added id field with uuid validation
+  id: Joi.string().required(), 
   deletedAt: Joi.date().allow(null)
 });
 

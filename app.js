@@ -1,10 +1,12 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const bodyparser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const port = process.env.PORT || 4200;
+const port = process.env.PORT;
 
-const myReqLogger = require('./Utilities/requestLogger');
+const myReqLogger = require('./utilities/requestLogger');
 const router = require('./routes/routing');
 
 app.use(cors());
