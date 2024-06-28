@@ -1,10 +1,16 @@
 const express = require("express");
+const bodyparser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 4200;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const myReqLogger = require('./Utilities/requestLogger');
+const router = require('./routes/routing');
+
+app.use(cors());
+app.use(bodyparser.json());
+app.use(myReqLogger);
+app.use('/', router);
 
 app.listen(port, () => {
   console.log(`app listening on port ${port}!`);
