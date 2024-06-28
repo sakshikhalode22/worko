@@ -30,13 +30,13 @@ exports.createUser = (userData) => {
 };
 
 exports.updateUser = (userId, userData) => {
-  return User.findOneAndUpdate({ id: userId }, userData, { new: true }).exec();
+  return User.findOneAndUpdate({ id: userId, deletedAt: null, }, userData, { new: true }).exec();
 };
 
 exports.partialUpdateUser = async (userId, updates) => {
-  return await User.findOneAndUpdate({ id: userId }, updates, { new: true });
+  return await User.findOneAndUpdate({ id: userId, deletedAt: null, }, updates, { new: true });
 };
 
 exports.softDeleteUser = async (userId) => {
-  return User.updateOne({ id: userId }, { $set: { deletedAt: Date.now() } });
+  return User.updateOne({ id: userId, deletedAt: null, }, { $set: { deletedAt: Date.now() } });
 };
