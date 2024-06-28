@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+
+const dbHost = process.env.DB_HOST;
+const dbPort = process.env.DB_PORT;
+const dbName = process.env.DB_NAME;
 
 mongoose
-  .connect("mongodb://localhost:27017/workodb", {
+  .connect(`mongodb://${dbHost}:${dbPort}/${dbName}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

@@ -1,7 +1,7 @@
 const UserService = require("../services/user.service");
-const UserValidator  = require("../Utilities/user.validator");
+const UserValidator  = require("../utilities/user.validator");
 const UserDTO = require("../dtos/user.dto");
-const helper= require("../Utilities/user.helpers")
+const helper= require("../utilities/user.helpers")
 
 exports.getUsers = async (req, res) => {
   try {
