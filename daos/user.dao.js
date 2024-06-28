@@ -4,17 +4,25 @@ exports.getUsers = () => {
   return User.find().exec();
 };
 
+exports.loginUser = (userData) => {
+  return User.findOne({
+    email: userData.email,
+    password: userData.password,
+    deletedAt: null,
+  }).exec();
+};
+
 exports.getUserById = (userId) => {
   return User.findOne({ id: userId }).exec();
 };
 
 exports.getActiveUsers = () => {
   return User.find({ deletedAt: null }).exec();
-}
+};
 
 exports.getInactiveUsers = () => {
   return User.find({ deletedAt: { $ne: null } }).exec();
-}
+};
 
 exports.createUser = (userData) => {
   const user = new User(userData);
@@ -31,4 +39,4 @@ exports.partialUpdateUser = async (userId, updates) => {
 
 exports.softDeleteUser = async (userId) => {
   return User.updateOne({ id: userId }, { $set: { deletedAt: Date.now() } });
-}
+};

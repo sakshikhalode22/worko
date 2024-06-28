@@ -6,6 +6,7 @@ router.get('/worko/users', UserController.getUsers);
 router.get('/worko/users/inactive', UserController.getInactiveUsers);
 router.get('/worko/users/active', UserController.getActiveUsers);
 router.get('/worko/users/:userId', UserController.getUserById);
+router.post('/worko/users/login', UserController.loginUser);
 router.post('/worko/users', UserController.createUser);
 router.put('/worko/users/:userId', UserController.updateUser);
 router.patch('/worko/users/:userId', UserController.partialUpdateUser);

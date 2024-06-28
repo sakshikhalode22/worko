@@ -1,6 +1,9 @@
 # Node.js
 node_modules/
 
+# coverage
+coverage/
+
 # Logs
 logs
 *.log

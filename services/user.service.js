@@ -16,6 +16,10 @@ exports.getUserById=(userId)=>{
   return UserDao.getUserById(userId)
 }
 
+exports.loginUser = (userData) => {
+  return UserDao.loginUser(userData);
+};
+
 exports.createUser=(userData)=>{
   return UserDao.createUser(userData)
 }
